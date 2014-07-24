@@ -24,17 +24,17 @@ import com.twitter.scalding._
 import org.apache.hadoop.mapred.JobConf
 import org.apache.hadoop.conf.Configuration
 
-import de.kp.core.arules.TopKNRAlgorithm
+import de.kp.core.arules.TopKAlgorithm
 import de.kp.core.arules.hadoop.io.{RuleWriter,VerticalReader}
 
-class TopKNREngine(args: Args) extends Job(args) {
+class TopKEngine(args: Args) extends Job(args) {
 
   override implicit val mode = new Hdfs(true, new Configuration())
   
   override def run: Boolean = {
 
-    println("Algorithm: TopKNR...")
-    
+    println("Algorithm: TopK...")
+
     val job = new JobConf()
 
     /**
@@ -42,8 +42,6 @@ class TopKNREngine(args: Args) extends Job(args) {
      */
     val k:Integer = args("k").toInt
 	val minConf:Double = args("min_conf").toDouble
-	
-	val delta:Integer = args("delta").toInt
 
     /**
      * Load vertical database
@@ -54,8 +52,8 @@ class TopKNREngine(args: Args) extends Job(args) {
     /**
      * Run algorithm and create Top K association rules
      */
-	val algo = new TopKNRAlgorithm()
-	val rules = algo.runAlgorithm(k, minConf, vertical, delta)
+	val algo = new TopKAlgorithm()
+	val rules = algo.runAlgorithm(k, minConf, vertical)
 	/**
 	 * Show statistics
 	 */

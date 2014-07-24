@@ -20,14 +20,14 @@ package de.kp.scala.arules
 
 import com.twitter.scalding.Args
 
-object TopKNRApp {
+object TopKApp {
 
   def main(args:Array[String]) {
 
     val input  = "/Work/tmp/arules/input/ContextIGB.txt"
     val output = "/Work/tmp/arules/output"
 
-    val params = List("--input",input, "--output",output, "--k","10", "--min_conf","0.5", "--delta","2", "--algo", "TopKNR")
+    val params = List("--input",input, "--output",output, "--k","10", "--min_conf","0.8", "--algo", "TopK")
 
     val args = Args(params)
     

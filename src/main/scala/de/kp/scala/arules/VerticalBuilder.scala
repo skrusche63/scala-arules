@@ -38,7 +38,15 @@ class VerticalBuilder(args:Args) extends Job(args) {
     val input = args("output") + "/vertical"
     val nextArgs = args + ("input", Some(input))
     
-    Some(new TopKNREngine(nextArgs))
+    val algo = args("algo")
+    algo match {
+      
+      case "TopK"   => Some(new TopKEngine(nextArgs))
+      case "TopKNR" => Some(new TopKNREngine(nextArgs))
+      
+      case _ => None
+    
+    }
     
   }
 
